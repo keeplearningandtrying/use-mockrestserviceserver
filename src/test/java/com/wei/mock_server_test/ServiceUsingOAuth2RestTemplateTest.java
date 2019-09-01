@@ -18,7 +18,7 @@ import org.springframework.security.oauth2.client.resource.OAuth2ProtectedResour
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.test.web.client.MockRestServiceServer;
 
-public class ServiceTest2 {
+public class ServiceUsingOAuth2RestTemplateTest {
 
 	private OAuth2RestTemplate oauth2RestTemplate;
 	private Service service;
@@ -67,79 +67,6 @@ public class ServiceTest2 {
 		mockServer.expect(requestTo(uri)).andExpect(method(HttpMethod.GET)).andRespond(withSuccess(json, MediaType.APPLICATION_JSON));
 		Employee employee = service.callServiceUsingOAuth2RestTemplate(uri);
 		assertThat(employee.getId()).isEqualTo("m123");
-	}
-
-
-	private OAuth2ProtectedResourceDetails getResourceDetails() {
-		BaseOAuth2ProtectedResourceDetails resource = new BaseOAuth2ProtectedResourceDetails();
-		resource.setId("resource");
-		return resource;
-		
-		/*
-		return new OAuth2ProtectedResourceDetails() {
-
-			@Override
-			public boolean isScoped() {
-				return false;
-			}
-
-			@Override
-			public boolean isClientOnly() {
-				return false;
-			}
-
-			@Override
-			public boolean isAuthenticationRequired() {
-				return false;
-			}
-
-			@Override
-			public String getTokenName() {
-				return "token";
-			}
-
-			@Override
-			public List<String> getScope() {
-				return Arrays.asList("read");
-			}
-
-			@Override
-			public String getId() {
-				return "id";
-			}
-
-			@Override
-			public String getGrantType() {
-				return "read";
-			}
-
-			@Override
-			public String getClientSecret() {
-				return "mysecret";
-			}
-
-			@Override
-			public String getClientId() {
-				return "clientid";
-			}
-
-			@Override
-			public AuthenticationScheme getClientAuthenticationScheme() {
-				return null;
-			}
-
-			@Override
-			public AuthenticationScheme getAuthenticationScheme() {
-				return null;
-			}
-
-			@Override
-			public String getAccessTokenUri() {
-				// TODO Auto-generated method stub
-				return null;
-			}
-		};
-		*/
 	}
 
 }
